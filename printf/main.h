@@ -1,62 +1,46 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef _PRINTF_H_
+#define _PRINTF_H_
 
-#include <stddef.h>
+#define BUFSIZE MAXLENGTH
+
+/* Importing Libraries */
+
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h> /* malloc, free */
-#include <stdarg.h> /* va_arg */
-#include <unistd.h> /* write */
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdarg.h>
+
+/* Type Definitions */
 
 /**
- * struct print_spec - struct
- * @id: identifier of type to print (e.g. c means char)
- * @fnspec: pointer to funcs that print according to identifier(e.g. print_c)
+ *struct format - structure for printing various types
+ *@spc: type to print
+ *@f: function to print
  */
-typedef struct print_spec
+
+typedef struct format
 {
-	char *id;
-	int (*fnspec)(va_list args);
-} specptr;
+const char spc;
+int (*f)(va_list);
+} format_t;
 
-/* print_alpha */
-int print_char(va_list args);
-int print_string(va_list args);
+/* Function Prototypes */
 
-/* print_nums */
-int print_int(va_list args);
-int print_unsigned(va_list args);
-void print_number(int n);
-int count_digit(int i);
-
-/* converter */
-char *convert(unsigned long int num, int base, int lowercase);
-
-/* print_bases */
-int print_binary(va_list args);
-int print_oct(va_list args);
-int print_hex(va_list args);
-int print_HEX(va_list args);
-
-/* print_custom */
-int print_S(va_list args);
-int print_reverse(va_list args);
-int print_rot13(va_list args);
-
-/* print_percent */
-int print_percent(va_list args);
-
-/* print_address */
-int print_address(va_list args);
-
-/* write_functions */
 int _putchar(char c);
-int _puts(char *str);
-
-/* _printf */
 int _printf(const char *format, ...);
+int print_c(va_list parameters);
+int print_s(va_list parameters);
+int print_percent(__attribute__((unused))va_list parameters);
+int print_i(va_list parameters);
+int print_d(va_list parameters);
+int (*get_func(const char a))(va_list);
+int print_integer(va_list parameters);
+int print_decimal(va_list parameters);
+int binary_recursive(unsigned int num, int len);
+int print_binary(va_list parameters);
+int print_unint(va_list parameters);
+int print_octal(va_list args);
+int rot_13(va_list parameters);
 
-/* print_spec */
-int (*print_spec(char c))(va_list);
 
-#endif
+#endif /* _PRINTF_H_ */
