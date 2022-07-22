@@ -1,7 +1,4 @@
 #!/bin/bash
-
-gcc -c -Wall -Wextra -Werror -pedantic *.c
-
-ar rc libmy.a *.o
-
-ranlib libmy.a
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 -c *.c
+ar -rc liball.a *.o
+ranlib liball.a
